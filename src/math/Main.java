@@ -13,33 +13,38 @@ public class Main
 
     public static void main(String[] args) {
         System.out.println("Hello, world!");
-        /*if (log.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             log.debug("Hello, world!");
-        }*/
+        }
 
         Random random = new Random();
         List<Double> mas1 = new ArrayList<>();
         List<List<Double>> mas  = new ArrayList<>();
+        List<List<Double>> out = new ArrayList<>();
 
-        int K = 1000;
-        int N = 1000;
+        int K = 15;
+        int N = 15;
         for(int i=0; i<K; i++)
         {
             for(int j=0; j<N; j++)
             {
-                mas1.add(random.nextDouble());
+                double a = random.nextDouble();
+                if (log.isDebugEnabled()) {
+                    log.debug("Вводимое число: "+ a);
+                }
+                mas1.add(a);
             }
             mas.add(mas1);
         }
 
         CalculateFunction result = new CalculateFunction(mas, K, 5, 2,10);
-
+        out = result.result();
 
         for(int i=0; i<K; i++)
         {
             for(int j=0; j<N; j++) {
                 if (log.isDebugEnabled()) {
-                    log.debug(mas.get(i).get(j));
+                    log.debug("mas (" + i +", " + j + ") - " +  out.get(i).get(j));
                 }
             }
 

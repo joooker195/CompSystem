@@ -1,21 +1,41 @@
 package math.bigfunctional;
 
+import math.calculate.CalculateDeltaAndN;
+import org.apache.log4j.Logger;
+
 import java.math.BigInteger;
 import java.util.HashMap;
 
 public class MathFactorial
 {
+    private static final Logger log = Logger.getLogger(MathFactorial.class);
     static HashMap<Integer,BigInteger> cache = new HashMap<Integer,BigInteger>();
 
-    public static BigInteger factorial(int n)
-    {
-        BigInteger ret;
+    public static BigInteger factorial(int n) {
+        BigInteger ret = BigInteger.ONE;
+        try {
+            if (n == 0) return BigInteger.ONE;
+            if (null != (ret = cache.get(n))) return ret;
+            ret = BigInteger.valueOf(n).multiply(factorial(n - 1));
+            /*if (log.isDebugEnabled()) {
+                log.debug("ret = "+ ret);
+            }*/
+            cache.put(n, ret);
+        } catch (StackOverflowError e) {
+            if (log.isDebugEnabled()) {
+                log.debug(e.fillInStackTrace());
+            }
+        }
+        finally
+        {
+            return ret;
 
-        if (n == 0) return BigInteger.ONE;
-        if (null != (ret = cache.get(n))) return ret;
-        ret = BigInteger.valueOf(n).multiply(factorial(n-1));
-        cache.put(n, ret);
-        return ret;
+        }
+    }
+
+    public static void clear()
+    {
+        cache = new HashMap<Integer,BigInteger>();
     }
 
     public static BigInteger sqrt(BigInteger n) {

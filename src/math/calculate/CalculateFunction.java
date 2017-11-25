@@ -38,13 +38,13 @@ public class CalculateFunction
         this.deltaT = coeff.calculateDelta();
 
 
-/*        for(int i=0; i<K; i++)
-        {
-            for(int j=0; j<N; j++)
-            {
-                inputMas.get(i).add(j, random.nextDouble());
+       for(int i=0; i< inputMas.size(); i++) {
+            ArrayList<Double> mas = new ArrayList<>();
+            for (int j = 0; j < inputMas.size(); j++) {
+                mas.add((double) 0);
             }
-        }*/
+            outP.add(mas);
+        }
 
     }
 

@@ -12,7 +12,7 @@ public class CalculateDeltaAndN
 
     private static final Logger log = Logger.getLogger(CalculateDeltaAndN.class);
 
-    private double sigma = 5;
+    private double sigma = 0.3;
     private final int C = 2;
     private int k;
     private int alpha;

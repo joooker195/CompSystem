@@ -13,33 +13,72 @@ public class MathBig
 
     public static BigInteger addNextDiv(int k, int s)
     {
-/*
-        if (log.isDebugEnabled()) {
-            log.debug("kFact = " +MathFactorial.factorial(k));
-            log.debug("sFact = " + MathFactorial.factorial(s));
-            log.debug("k-sFact = "+ MathFactorial.factorial(k-s));
+        BigInteger res = BigInteger.ONE;
+        try {
+
+            MathFactorial.clear();
+            BigInteger fk =  MathFactorial.factorial(k);
+            if (log.isDebugEnabled()) {
+                log.debug("k = "+k+" fk = " + fk);
+            }
+
+            MathFactorial.clear();
+                       BigInteger fs = MathFactorial.factorial(s);
+            if (log.isDebugEnabled()) {
+                log.debug("s = "+s+" fs = " + fs);
+            }
+
+            MathFactorial.clear();
+            int ks = k-s;
+            if(ks<0)
+            {
+                ks=ks*(-1);
+            }
+            BigInteger fks = MathFactorial.factorial(ks);
+            if (log.isDebugEnabled()) {
+                log.debug("k - s = " + ks +" fks = "+ fks);
+            }
+
+            res = fk.divide(fs.multiply(fks));
+            if (log.isDebugEnabled()) {
+                log.debug("Высчитываем c1 = " + res);
+            }
+            return res;
         }
-*/
-
-
-        return MathFactorial.factorial(k).divide(MathFactorial.factorial(s).multiply(MathFactorial.factorial(k-s)));
+        catch (Exception e)
+        {
+            if (log.isDebugEnabled()) {
+                log.debug(e.fillInStackTrace());
+            }
+        }
+        return res;
     }
 
     public static BigInteger addNextDiv(int k, int s, int alpha)
     {
-        return MathFactorial.factorial(k+s+ alpha).divide(MathFactorial.factorial(k).multiply(MathFactorial.factorial(s+ alpha)));
-    }
+        MathFactorial.clear();
+        BigInteger fk =  MathFactorial.factorial(k);
+        if (log.isDebugEnabled()) {
+            log.debug("k = "+k+" fk = " + fk);
+        }
 
-    public static BigDecimal returnBigDecimal(BigInteger num)
-    {
-        Long longnum = Long.valueOf(num.toString());
-        return BigDecimal.valueOf(longnum);
-    }
+        MathFactorial.clear();
+        BigInteger fksa = MathFactorial.factorial(k+s+alpha);
+        if (log.isDebugEnabled()) {
+            log.debug("k+s+alpha = "+(k+s+alpha)+" fksa = " + fksa);
+        }
 
-    public static BigDecimal returnBigDecimal(double num)
-    {
-        Long longnum = Long.valueOf(String.valueOf(num));
-        return BigDecimal.valueOf(longnum);
+        MathFactorial.clear();
+        BigInteger fsa = MathFactorial.factorial(s+alpha);
+        if (log.isDebugEnabled()) {
+            log.debug("s+alpha = " + (s+alpha) +" fsa = "+ fsa);
+        }
+
+        BigInteger res = fksa.divide(fk.multiply(fsa));
+        if (log.isDebugEnabled()) {
+            log.debug("Высчитываем c2 = " + res);
+        }
+        return res;
     }
 
     public static BigInteger returnBigInteger(double num)
